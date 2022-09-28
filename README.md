@@ -18,7 +18,7 @@ If you Encounter any Errors or Bugs, please report them in [Issues](https://gith
 
 ## To use Executable:
 
-* Download `Skyblock_Item_NBT_Generator.exe` from the [Releases](https://github.com/SyndiShanX/Skyblock_Item_NBT_Generator/releases) Page
+* Download `Skyblock_Item_NBT_Generator.exe` from the [Releases](https://github.com/SyndiShanX/Skyblock-Item-NBT-Generator/releases) Page
 
 * Get your Skyblock API Key [Info](https://hypixel-skyblock.fandom.com/wiki/SkyBlock_API)
 
