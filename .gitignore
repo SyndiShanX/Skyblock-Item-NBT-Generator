@@ -1,3 +1,4 @@
 *.exe
 *.bat
 *.ico
+build_env/*
