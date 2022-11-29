@@ -144,32 +144,34 @@ def genItem(itemID, itemCount, isUnbreakable, hideFlags, loreStrings, tintColor,
   if path.exists(str(hypixelID).title() + ".dat") == 1:
     print("'" + str(hypixelID).title() + ".dat' Successfully Generated!")
 
-def getItemDetails(itemSource, itemIndex, backpackIndex):
+def getItemDetails(itemSource, itemIndex, backpackIndex, Username):
+  UUID = MojangAPI.get_uuid(Username)
+
   SkyblockPlayerData = open(fileDir + 'SkyblockPlayerData.json')
   SkyblockPlayerJson = json.load(SkyblockPlayerData)
 
   if itemSource.lower() == "armor":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["inv_armor"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["inv_armor"]["data"]
   elif itemSource.lower() == "equipment":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["equippment_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["equippment_contents"]["data"]
   elif itemSource.lower() == "backpack":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["backpack_contents"][backpackIndex]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["backpack_contents"][backpackIndex]["data"]
   elif itemSource.lower() == "quiver":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["quiver"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["quiver"]["data"]
   elif itemSource.lower() == "talismanbag":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["talisman_bag"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["talisman_bag"]["data"]
   elif itemSource.lower() == "enderchest":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["ender_chest_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["ender_chest_contents"]["data"]
   elif itemSource.lower() == "wardrobe":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["wardrobe_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["wardrobe_contents"]["data"]
   elif itemSource.lower() == "potionbag":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["potion_bag"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["potion_bag"]["data"]
   elif itemSource.lower() == "vault":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["personal_vault_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["personal_vault_contents"]["data"]
   elif itemSource.lower() == "inventory":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["inv_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["inv_contents"]["data"]
   elif itemSource.lower() == "candyinventory":
-    selectedSource = SkyblockPlayerJson["profiles"][0]["members"]["71a9f3d871894c188a7b9d53b72eb1fa"]["candy_inventory_contents"]["data"]
+    selectedSource = SkyblockPlayerJson["profiles"][0]["members"][str(UUID)]["candy_inventory_contents"]["data"]
 
   if len(str(selectedSource).split('H4sIAAAAAAAAAONiYOBkYMzkYmBg')) == 2:
     exit("Selected Source is Empty")
@@ -249,7 +251,7 @@ while True:
       else:
         selectedSlot = int(values['-selectedSlot-']) - 1
       getAPIJson(values['-apiKey-'], values['-username-'])
-      getItemDetails(values['-selectedInventory-'], selectedSlot, values['-selectedBackpack-'])
+      getItemDetails(values['-selectedInventory-'], selectedSlot, values['-selectedBackpack-'], values['-username-'])
     except IndexError:
       print("Error: Selected Slot does Not Exist")
     except KeyError:
