@@ -3,7 +3,7 @@ import base64
 import json
 import os
 import io
-from mojang import MojangAPI
+from mojang import API
 from os.path import exists
 from nbt.nbt import *
 from os import path
@@ -15,6 +15,8 @@ fileDir = fileDir + '/'
 
 ui.theme('Dark')
 ui.SetOptions(button_color=('#FFF', '#291f18'), background_color='#291f18')
+
+MojangAPI = API()
 
 button_image = 'iVBORw0KGgoAAAANSUhEUgAAAMgAAAAUCAMAAAD/eoL4AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAEgUExURQAAAP7+/fz8+fz8+vv79/v7+Pr69vf38Pb27/Pz7O7u5+rq4+bm3+Hh2tvb1NfX0dPTzM7OyMrKxMbGwMPDvcHBu729t7y8trm5tLe3sra2sbW1sLOzrrKyraaonv39/CIiHQwMCxYWE3J0bBoUDx8YE3N1bqSklyAgHB0WEiYdFykfGBENCk1OSBUVElpcVBwVETY2MTg4M1VUTdLRzOfn5CEZFCYmIXt6cBUQDEJBO4B/czM1Lzg3MmhnXvj49i0tKIKBdgkJCCwhGldYUScoJGJiWzUoH42Qhfr69RYWEmBhWhoaFpqalLy8t7u7tbi4sra2sLi4s76+uL+/ucLCvMTEvsjIws/Pydra09/f2OPj3Ofn4Ovr5CMkHQAAALGPZ7cAAABgdFJOU///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AHNt5EMAAAAJcEhZcwAACxMAAAsTAQCanBgAAAGTSURBVFhH1ZfbVoJAFEBJ0e5pVgpC5RhUOkYWlGiZhKXZTe1+seb//6IzNKh9QZ7NggcWD3uvWcOaIzHGpiKRaFSOxePx6ZnZufmFxaVEcjm1srqWziiKoqpZTdN1fX0C4BKgouuaIMtRNyACQjZzBDn5LR4i54hhosYg+W0m7eySQpEOKWFB+HKKBbJnSfvEGO8oY+FPiXFgSYeWSantHDk2vCmVj7EQlITeZhhCK24FnrQqvsJAlQsLbxHiUFo7qVHqUDwLAksCvqE3Dzm1TNeu18/qddtFFjLyDkOchuM24MYWMvQOQ2qefW57NXQhQ28RYvu+d+L5vo0sZOQtQnzYNC5sGh9ZyMhbhMD/2HVc/j/GFTLyHob4HHjRxFNSboJv6G1eWNJla/yI0hYHgMmnLYwDjCtLIvnW+KGxjQXhG1DoXBOJkfwN9mN85JbwwQpK7tKceyDT7So9FYDxS4dL035ns/8CJtNgIuz3+2rvIfP49PzymnpLJt4/PgeDwZcsx6KRzjcJJkQm5izEMMZ+AM5B5lumv71NAAAAAElFTkSuQmCC'
 
@@ -58,10 +60,9 @@ def getAPIJson(API_Key, username):
     }
   ).json()
 
-  if not exists(fileDir + 'SkyblockPlayerData.json'):
-    f = open(fileDir + 'SkyblockPlayerData.json', 'w')
-    f.write(decodeString(str(Skyblock_Player_Data).replace('"', '"').replace(': True', ': "True"').replace(': False', ': "False"').replace(': None', ': "None"')))
-    f.close()
+  f = open(fileDir + 'SkyblockPlayerData.json', 'w')
+  f.write(decodeString(str(Skyblock_Player_Data).replace("'", '"').replace(': True', ': "True"').replace(': False', ': "False"').replace(': None', ': "None"')))
+  f.close()
 
 def decodeString(inputString):
   string_nonASCII = inputString
@@ -263,13 +264,13 @@ while True:
       except ValueError:
         None
       if type(values['-selectedProfile-']) == str:
+        getAPIJson(values['-apiKey-'], values['-username-'])
         SkyblockPlayerData = open(fileDir + 'SkyblockPlayerData.json')
         SkyblockPlayerJson = json.load(SkyblockPlayerData)
         for x in range(0, len(SkyblockPlayerJson['profiles'])):
           if SkyblockPlayerJson['profiles'][x]['cute_name'] == values['-selectedProfile-']:
             selectedProfile = x
       try:
-        getAPIJson(values['-apiKey-'], values['-username-'])
         getItemDetails(values['-selectedInventory-'], selectedSlot, selectedProfile, values['-selectedBackpack-'], values['-username-'])
       except NameError:
         print('Profile Name "' + values['-selectedProfile-'] + '" Not Found')
