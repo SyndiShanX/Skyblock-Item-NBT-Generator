@@ -8,6 +8,7 @@ from os.path import exists
 from nbt.nbt import *
 from os import path
 import PySimpleGUI as ui
+import traceback
 
 fileDir = os.getcwd()
 fileDir = fileDir.replace('\\', '/')
@@ -277,5 +278,6 @@ while True:
     except IndexError:
       print('Error: Selected Slot does Not Exist')
     except KeyError:
+      traceback.print_exc()
       print('Error: Selected Backpack does Not Exist')
 window.close()
