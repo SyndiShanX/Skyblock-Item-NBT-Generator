@@ -53,7 +53,7 @@ def getAPIJson(API_Key, username):
   Skyblock_Player_Data = 'null'
 
   Skyblock_Player_Data = requests.get(
-    url='https://api.hypixel.net/skyblock/profiles',
+    url='https://api.hypixel.net/v2/skyblock/profiles',
     params={
       'key': API_Key,
       'uuid': UUID,
@@ -155,27 +155,27 @@ def getItemDetails(itemSource, itemIndex, profileIndex, backpackIndex, username)
   SkyblockPlayerJson = json.load(SkyblockPlayerData)
 
   if itemSource.lower() == 'armor':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inv_armor']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['inv_armor']['data']
   elif itemSource.lower() == 'equipment':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['equippment_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['equippment_contents']['data']
   elif itemSource.lower() == 'backpack':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['backpack_contents'][backpackIndex]['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['backpack_contents'][backpackIndex]['data']
   elif itemSource.lower() == 'quiver':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['quiver']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['quiver']['data']
   elif itemSource.lower() == 'talismanbag':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['talisman_bag']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['talisman_bag']['data']
   elif itemSource.lower() == 'enderchest':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['ender_chest_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['ender_chest_contents']['data']
   elif itemSource.lower() == 'wardrobe':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['wardrobe_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['wardrobe_contents']['data']
   elif itemSource.lower() == 'potionbag':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['potion_bag']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['potion_bag']['data']
   elif itemSource.lower() == 'vault':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['personal_vault_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['personal_vault_contents']['data']
   elif itemSource.lower() == 'inventory':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inv_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['inv_contents']['data']
   elif itemSource.lower() == 'candyinventory':
-    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['candy_inventory_contents']['data']
+    selectedSource = SkyblockPlayerJson['profiles'][int(profileIndex)]['members'][str(UUID)]['inventory']['candy_inventory_contents']['data']
 
   if len(str(selectedSource).split('H4sIAAAAAAAAAONiYOBkYMzkYmBg')) == 2:
     print('Selected Source is Empty')

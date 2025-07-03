@@ -2,3 +2,5 @@
 *.bat
 *.ico
 build_env/*
+*.dat
+SkyblockPlayerData.json
